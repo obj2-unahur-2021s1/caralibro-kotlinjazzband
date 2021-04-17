@@ -10,6 +10,9 @@ class UsuarioTest : DescribeSpec({
     val videoVacaciones = Video(10000, "sd")
     val videoCordoba = Video(10000, "hd_720")
     val videoShow = Video(10000, "hd_1080")
+    videoCordoba.adMeGusta("Me Gusta")
+    videoCordoba.adMeGusta("Me Gusta")
+    videoCordoba.adMeGusta("Me Gusta")
 
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -39,6 +42,12 @@ class UsuarioTest : DescribeSpec({
         }
       }
 
+      describe("la publicación me gusta"){
+        it ("cantidad de me gusta"){
+          videoCordoba.cantidadDeMeGusta().shouldBe(3)
+        }
+      }
+
     }
 
     describe("Un usuario") {
@@ -52,5 +61,7 @@ class UsuarioTest : DescribeSpec({
         juana.espacioDePublicaciones().shouldBe(650548)
       }
     }
+
+
   }
 })
