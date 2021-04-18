@@ -14,13 +14,13 @@ class UsuarioTest : DescribeSpec({
     videoCordoba.adMeGusta("Me Gusta")
     videoCordoba.adMeGusta("Me Gusta")
 
+    // TEST PARA PUBLICACIONES
     describe("Una publicación") {
       describe("de tipo foto") {
         it("ocupa ancho * alto * compresion bytes") {
           fotoEnCuzco.espacioQueOcupa().shouldBe(550503)
         }
       }
-
       describe("de tipo texto") {
         it("ocupa tantos bytes como su longitud") {
           saludoCumpleanios.espacioQueOcupa().shouldBe(45)
@@ -41,7 +41,6 @@ class UsuarioTest : DescribeSpec({
           videoShow.espacioQueOcupa().shouldBe(60000)
         }
       }
-
       describe("la publicación me gusta"){
         it ("cantidad de me gusta"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
@@ -49,10 +48,13 @@ class UsuarioTest : DescribeSpec({
       }
 
     }
-
+    //  TEST USUARIOS
     describe("Un usuario") {
+      val juana = Usuario()
+      val pedro = Amigo()
+      val naty = Usuario()
+      val miranda = Amigo()
       it("puede calcular el espacio que ocupan sus publicaciones") {
-        val juana = Usuario()
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.agregarPublicacion(videoVacaciones)
@@ -60,8 +62,22 @@ class UsuarioTest : DescribeSpec({
         juana.agregarPublicacion(videoShow)
         juana.espacioDePublicaciones().shouldBe(650548)
       }
+        describe("cuantos usuarios amigos"){
+          juana.agregarAmigo(pedro)
+          juana.agregarAmigo(miranda)
+          naty.agregarAmigo(pedro)
+          it("cuantos amigos tiene naty"){
+            naty.cantidadDeAmigos().shouldBe(1)
+          }
+          it("cuantos amigos tiene juana"){
+            juana.cantidadDeAmigos().shouldBe(2)
+          }
+          it("usuario mas amistoso juana"){
+            juana.esMasAmistoso(naty).shouldBe(juana)
+          }
+        }
     }
-
+    /* fuera del test de publicaciones y test de usuario */
 
   }
 })

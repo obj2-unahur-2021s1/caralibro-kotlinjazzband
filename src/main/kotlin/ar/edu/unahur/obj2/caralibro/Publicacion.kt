@@ -22,7 +22,6 @@ class Texto(val contenido: String) : Publicacion() {
 }
 
 class Video(var duracion: Int, val calidad: String) : Publicacion() {
-
   override fun espacioQueOcupa(): Int {
     return when(calidad){
       "sd" -> duracion
