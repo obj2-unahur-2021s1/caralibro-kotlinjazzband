@@ -1,6 +1,5 @@
 package ar.edu.unahur.obj2.caralibro
 
-@Suppress("UNREACHABLE_CODE")
 open class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
   val usuariosAmigos = mutableListOf<Amigo>()
