@@ -13,8 +13,10 @@ open class Usuario {
   fun cantidadDeAmigos() = usuariosAmigos.size
 
   fun esMasAmistoso(usuario: Usuario): Usuario {
-    return  this ; if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos())
-      else usuario
+    //return  this ; if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos())
+   //   else usuario
+
+   return  if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
 
   // FIN CLASS

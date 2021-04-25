@@ -10,9 +10,12 @@ class UsuarioTest : DescribeSpec({
     val videoVacaciones = Video(10000, "sd")
     val videoCordoba = Video(10000, "hd_720")
     val videoShow = Video(10000, "hd_1080")
-    videoCordoba.adMeGusta("Me Gusta")
-    videoCordoba.adMeGusta("Me Gusta")
-    videoCordoba.adMeGusta("Me Gusta")
+    val juana = Usuario()
+    val naty = Usuario()
+    val horacio = Usuario()
+    videoCordoba.adMeGusta(juana)
+    videoCordoba.adMeGusta(naty)
+    videoCordoba.adMeGusta(horacio)
 
     // TEST PARA PUBLICACIONES
     describe("Una publicación") {
@@ -50,9 +53,9 @@ class UsuarioTest : DescribeSpec({
     }
     //  TEST USUARIOS
     describe("Un usuario") {
-      val juana = Usuario()
+      //val juana = Usuario()
       val pedro = Amigo()
-      val naty = Usuario()
+      //val naty = Usuario()
       val miranda = Amigo()
       it("puede calcular el espacio que ocupan sus publicaciones") {
         juana.agregarPublicacion(fotoEnCuzco)
