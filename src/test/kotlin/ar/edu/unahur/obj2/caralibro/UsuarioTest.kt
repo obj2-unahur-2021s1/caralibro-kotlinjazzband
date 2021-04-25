@@ -48,14 +48,19 @@ class UsuarioTest : DescribeSpec({
         it ("cantidad de me gusta"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
         }
+
+        //agregamos un nuevo Me gusta de horacio y deberia seguir dando resultado 3 meGusta
+
+        videoCordoba.adMeGusta(horacio)
+        it ("cantidad de me gusta sumando un de usuario repetido"){
+          videoCordoba.cantidadDeMeGusta().shouldBe(3)
+        }
       }
 
     }
     //  TEST USUARIOS
     describe("Un usuario") {
-      //val juana = Usuario()
       val pedro = Amigo()
-      //val naty = Usuario()
       val miranda = Amigo()
       it("puede calcular el espacio que ocupan sus publicaciones") {
         juana.agregarPublicacion(fotoEnCuzco)
