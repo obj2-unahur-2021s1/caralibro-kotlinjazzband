@@ -1,34 +1,32 @@
 package ar.edu.unahur.obj2.caralibro
 
-//import kotlin.math.ceil
-
 abstract class Publicacion {
   val usuariosLesGusta = mutableListOf<Usuario>()
+  var tipoPublicacion: String = "Publico"
 
-  //val tipoPermiso=
+  fun agregarTipoPublicacion(tipo: String) = tipo.also { tipoPublicacion = it }
+  fun tipoPublicacion(): String { return tipoPublicacion }
+
   abstract fun espacioQueOcupa(): Int
-  //, val amigos: MutableList<Amigos> = mutableListOf()
 
   fun adMeGusta(nuevoUsuario: Usuario) {
-    if (!usuariosLesGusta.contains(nuevoUsuario)) {
-      usuariosLesGusta.add(nuevoUsuario)
-    }
+    if (!usuariosLesGusta.contains(nuevoUsuario)) { usuariosLesGusta.add(nuevoUsuario) }
   }
-
-  fun cantidadDeMeGusta(): Int {
-    return usuariosLesGusta.size
-  }
+  fun cantidadDeMeGusta(): Int { return usuariosLesGusta.size }
 }
 
+// PUBLICACIONES FOTOGRÁFICAS
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
   val factorDeCompresion = 0.7
   override fun espacioQueOcupa() = Math.ceil(alto * ancho * factorDeCompresion).toInt()
 }
 
+// PUBLICACIONES DE TEXTO
 class Texto(val contenido: String) : Publicacion() {
   override fun espacioQueOcupa() = contenido.length
 }
 
+// PUBLICACIONES DE VIDEO
 class Video(var duracion: Int, val calidad: String) : Publicacion() {
   override fun espacioQueOcupa(): Int {
     return when(calidad){
@@ -37,4 +35,5 @@ class Video(var duracion: Int, val calidad: String) : Publicacion() {
       else -> (duracion)
     }
   }
+
 }

@@ -16,7 +16,11 @@ class UsuarioTest : DescribeSpec({
     videoCordoba.adMeGusta(juana)
     videoCordoba.adMeGusta(naty)
     videoCordoba.adMeGusta(horacio)
+    fotoEnCuzco.agregarTipoPublicacion("Privado")
+    videoCordoba.agregarTipoPublicacion("Amigos")
+    saludoCumpleanios.agregarTipoPublicacion("Publico")
 
+    // tipoDePublicacion = Publico, Amigos, Privado
     // TEST PARA PUBLICACIONES
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -50,10 +54,24 @@ class UsuarioTest : DescribeSpec({
         }
 
         //agregamos un nuevo Me gusta de horacio y deberia seguir dando resultado 3 meGusta
-
         videoCordoba.adMeGusta(horacio)
         it ("cantidad de me gusta sumando un de usuario repetido"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
+        }
+      }
+      describe("Tipo de publicación foto"){
+        it("foto en cuzco PRIVADO"){
+          fotoEnCuzco.tipoPublicacion().shouldBe("Privado")
+        }
+      }
+      describe("Tipo de publicación video"){
+        it(" Video Cordoba AMIGOS"){
+          videoCordoba.tipoPublicacion().shouldBe("Amigos")
+        }
+      }
+      describe("Tipo de publicación saludo"){
+        it(" Saludo Cumpleaños PUBLICO "){
+          saludoCumpleanios.tipoPublicacion().shouldBe("Publico")
         }
       }
 
