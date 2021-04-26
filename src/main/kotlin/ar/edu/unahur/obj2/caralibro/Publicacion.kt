@@ -13,35 +13,15 @@ abstract class Publicacion {
   fun esUnUsuarioPrivado(usuario: Usuario): Boolean { return usuariosPrivados.contains(usuario) }
   fun esUnUsuarioExcluido(usuario: Usuario): Boolean { return usuariosExcluidos.contains(usuario) }
   fun esUnUsuarioAmigo(usuario: Usuario): Boolean { return Usuario().usuariosAmigos.contains(usuario) }
-  fun queTipoDePublicacion(permiso: Permiso): Boolean { return tipoPublicacion.contains(permiso) }
-  /*
-  Ver que tipo de publicación es.
-  si es publica y no esta en la lista de usuariosExcluidos ok
-  si es privado, pertenecer a lista de usuariosPrivados
-  si es solo amigos pertenecer a lista de usuariosAmigos
-  */
+  fun elTipoDePublicacionEs(permiso: Permiso): Boolean { return tipoPublicacion.contains(permiso) }
 
+  /*  Ver que tipo de publicación es. Público y no esta en la lista de usuariosExcluidos ok
+  si es privado, pertenecer a lista de usuariosPrivados y si es solo amigos pertenecer a lista de usuariosAmigos */
   fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
-    return queTipoDePublicacion(Publico()) && !esUnUsuarioExcluido(usuario) ||
-    queTipoDePublicacion(Amigos()) && esUnUsuarioAmigo(usuario) ||
-    queTipoDePublicacion(Privado()) && esUnUsuarioPrivado(usuario)
+    return elTipoDePublicacionEs(Amigos()) && esUnUsuarioAmigo(usuario) ||
+            elTipoDePublicacionEs(Publico()) && !esUnUsuarioExcluido(usuario) ||
+            elTipoDePublicacionEs(Privado()) && esUnUsuarioPrivado(usuario)
   }
-/*
-  fun usuarioPuedeVerPublicacion1(usuario: Usuario): Boolean {
-    if(this.tipoPublicacion.contains(Amigos())){
-      return Usuario().usuariosAmigos.contains(usuario)
-    }
-    else if(tipoPublicacion.contains(PrivadoConListaPermitidos())){
-      return this.usuariosPrivados.contains(usuario)
-    }
-    else if(tipoPublicacion.contains(PublicoConListaExcluidos())){
-      return !this.usuariosExcluidos.contains(usuario)
-    }
-    else{
-      //Publico() no es ninguno de los otros permisos, siempre es true
-      return true
-    }
-  } */
 
   abstract fun espacioQueOcupa(): Int
 

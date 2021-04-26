@@ -36,7 +36,6 @@ class UsuarioTest : DescribeSpec({
 
     // tipoDePublicacion = Publico, Amigos, Privado
     fotoEnCuzco.agregarTipoPublicacion(Privado())
-
     videoCordoba.agregarTipoPublicacion(Amigos())
 
     saludoCumpleanios.agregarTipoPublicacion(Publico())
@@ -91,10 +90,12 @@ class UsuarioTest : DescribeSpec({
 
       // Verificar Permisos
       describe("Tipo de publicación foto"){
-        it("foto en cuzco PRIVADO usuario en Lista Permitidos (da falso)"){
+        it("foto en cuzco PRIVADO con usuario en Lista Permitidos (da falso)"){
           fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
+      // pedro es amigo de juana y esta en lista privada, horacio es amigo pero no esta en lista
+
       describe("Tipo de publicación foto falso") {
         it("foto en cuzco PRIVADO sin usuario en Lista Permitidos(ok)") {
           fotoEnCuzco.usuarioPuedeVerPublicacion(horacio).shouldBe(false)
@@ -106,9 +107,11 @@ class UsuarioTest : DescribeSpec({
           videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(true)
         }
       }
+      // naty es amigo de juana y miranda no
+
       describe("Tipo de publicación video falso"){
         it("Video Cordoba sin usuario en lista de AMIGOS(OK)"){
-          videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(false)
+          videoCordoba.usuarioPuedeVerPublicacion(miranda).shouldBe(false)
         }
       }
 
@@ -117,6 +120,7 @@ class UsuarioTest : DescribeSpec({
           videoShow.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
+      // pedro es amigo de juana y miranda no. Mirandad esta excluida, pedro no
       describe("Tipo de publicación: publica usuario Incluido en lista de excluido"){
         it("Video con usuario en Lista Excluidos (ok)"){
           videoShow.usuarioPuedeVerPublicacion(miranda).shouldBe(false)
