@@ -2,10 +2,26 @@ package ar.edu.unahur.obj2.caralibro
 
 abstract class Publicacion {
   val usuariosLesGusta = mutableListOf<Usuario>()
-  var tipoPublicacion: String = "Publico"
+  val tipoPublicacion = mutableListOf<Permiso>()
+  val usuariosPrivados = mutableListOf<Usuario>()
+  val usuariosExcluidos = mutableListOf<Usuario>()
 
-  fun agregarTipoPublicacion(tipo: String) = tipo.also { tipoPublicacion = it }
-  fun tipoPublicacion(): String { return tipoPublicacion }
+  fun agregarTipoPublicacion(tipo: Permiso) = tipoPublicacion.add(tipo)
+  fun agregarPrivado(usuario: Usuario)  = usuariosPrivados.add(usuario)
+  fun agregarExcluido(usuario: Usuario) = usuariosExcluidos.add(usuario)
+
+  fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
+    if(this.tipoPublicacion.contains(SoloAmigos())){
+      return Usuario().usuariosAmigos.contains(usuario)
+    }else if(tipoPublicacion.contains(PrivadoConListaPermitidos())){
+      return this.usuariosPrivados.contains(usuario)
+    }else if(tipoPublicacion.contains(PublicoConListaExcluidos())){
+      return !this.usuariosExcluidos.contains(usuario)
+    }else{
+      //Publico() no es ninguno de los otros permisos, siempre es true
+      return true
+    }
+  }
 
   abstract fun espacioQueOcupa(): Int
 

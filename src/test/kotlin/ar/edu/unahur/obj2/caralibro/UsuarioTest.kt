@@ -6,6 +6,7 @@ import io.kotest.matchers.shouldBe
 class UsuarioTest : DescribeSpec({
   describe("Caralibro") {
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
+    val saludoCumpleanios2 = Texto("Muchas Felicidades, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
     val videoVacaciones = Video(10000, "sd")
     val videoCordoba = Video(10000, "hd_720")
@@ -13,14 +14,19 @@ class UsuarioTest : DescribeSpec({
     val juana = Usuario()
     val naty = Usuario()
     val horacio = Usuario()
+    val pedro = Usuario()
+    val miranda = Usuario()
     videoCordoba.adMeGusta(juana)
     videoCordoba.adMeGusta(naty)
     videoCordoba.adMeGusta(horacio)
-    fotoEnCuzco.agregarTipoPublicacion("Privado")
-    videoCordoba.agregarTipoPublicacion("Amigos")
-    saludoCumpleanios.agregarTipoPublicacion("Publico")
+    fotoEnCuzco.agregarTipoPublicacion(PrivadoConListaPermitidos())
+    fotoEnCuzco.agregarPrivado(pedro)
+    videoCordoba.agregarTipoPublicacion(SoloAmigos())
+    saludoCumpleanios.agregarTipoPublicacion(Publico())
+    saludoCumpleanios2.agregarTipoPublicacion(PublicoConListaExcluidos())
+    saludoCumpleanios2.agregarExcluido(pedro)
 
-    // tipoDePublicacion = Publico, Amigos, Privado
+    // tipoDePublicacion = Publico, SoloAmigos, PrivadoConListaPermitidos, PublicoConListaExcluidos
     // TEST PARA PUBLICACIONES
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -60,27 +66,30 @@ class UsuarioTest : DescribeSpec({
         }
       }
       describe("Tipo de publicación foto"){
-        it("foto en cuzco PRIVADO"){
-          fotoEnCuzco.tipoPublicacion().shouldBe("Privado")
+        it("foto en cuzco Privado Con Lista Permitidos"){
+          fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
       describe("Tipo de publicación video"){
         it(" Video Cordoba AMIGOS"){
-          videoCordoba.tipoPublicacion().shouldBe("Amigos")
+          videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(true)
         }
       }
       describe("Tipo de publicación saludo"){
-        it(" Saludo Cumpleaños PUBLICO "){
-          saludoCumpleanios.tipoPublicacion().shouldBe("Publico")
+        it(" Saludo Cumpleaños publico "){
+          saludoCumpleanios.usuarioPuedeVerPublicacion(naty).shouldBe(true)
+        }
+      }
+      describe("Otro Tipo de publicación saludo"){
+        it(" Saludo Cumpleaños Publico Con Lista Excluidos "){
+          saludoCumpleanios2.usuarioPuedeVerPublicacion(pedro).shouldBe(false)
         }
       }
 
     }
     //  TEST USUARIOS
     describe("Un usuario") {
-      val pedro = Amigo()
-      val miranda = Amigo()
-      it("puede calcular el espacio que ocupan sus publicaciones") {
+     it("puede calcular el espacio que ocupan sus publicaciones") {
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.agregarPublicacion(videoVacaciones)

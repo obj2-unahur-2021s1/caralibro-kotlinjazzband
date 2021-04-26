@@ -1,31 +1,19 @@
 package ar.edu.unahur.obj2.caralibro
 
-// tipoDePublicacion = Publico, Amigos, Privado
 
 open class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
-  val usuariosAmigos = mutableListOf<Amigo>()
-  val usuariosPrivados = mutableListOf<Amigo>()
-  val usuariosExcluidos = mutableListOf<Amigo>()
+  val usuariosAmigos = mutableListOf<Usuario>()
 
-  fun agregarAmigo(amigo: Amigo) { usuariosAmigos.add(amigo) }
+  fun agregarAmigo(usuario: Usuario) { usuariosAmigos.add(usuario) }
   fun agregarPublicacion(publicacion: Publicacion) { publicaciones.add(publicacion)  }
-  fun agregarPrivado(amigo: Amigo) { usuariosPrivados.add(amigo) }
-  fun agregarExcluido(amigo: Amigo) { usuariosExcluidos.add(amigo) }
 
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
   fun cantidadDeAmigos() = usuariosAmigos.size
   fun esMasAmistoso(usuario: Usuario): Usuario {
    return if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
-  fun usuarioPuedeVerPublicacion() {
-    /*
-    Ver que tipo de publicación es.
-    si es publica y no esta en la lista de usuariosExcluidos ok
-    si es privado, pertenecer a lista de usuariosPrivados
-    si es solo amigos pertenecer a lista de usuariosAmigos
-    */
-  }
+
   fun quienVeTodas(){
     // el conjunto de sus amigos que pueden ver todas sus publicaciones
   }
@@ -38,4 +26,4 @@ open class Usuario {
 
 }// FIN CLASS
 
-class Amigo : Usuario(){ } // verificar si debe heredar de usuario
+//class Amigo : Usuario(){ } // verificar si debe heredar de usuario
