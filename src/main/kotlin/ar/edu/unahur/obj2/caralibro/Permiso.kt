@@ -1,9 +1,8 @@
 package ar.edu.unahur.obj2.caralibro
 
-abstract class Permiso {
-}
+abstract class Permiso { }
 
 class Publico(): Permiso(){}
-class SoloAmigos(): Permiso(){}
-class PrivadoConListaPermitidos(): Permiso(){}
-class PublicoConListaExcluidos(): Permiso(){}
+class Amigos(): Permiso(){}
+class Privado(): Permiso(){}
+//class PublicoConListaExcluidos(): Permiso(){}

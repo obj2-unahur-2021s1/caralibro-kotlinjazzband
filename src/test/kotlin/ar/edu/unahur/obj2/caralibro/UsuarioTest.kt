@@ -11,22 +11,45 @@ class UsuarioTest : DescribeSpec({
     val videoVacaciones = Video(10000, "sd")
     val videoCordoba = Video(10000, "hd_720")
     val videoShow = Video(10000, "hd_1080")
+
     val juana = Usuario()
     val naty = Usuario()
     val horacio = Usuario()
     val pedro = Usuario()
     val miranda = Usuario()
+
+    juana.agregarAmigo(naty)
+    juana.agregarAmigo(horacio)
+    juana.agregarAmigo(pedro)
+
+    // Agregar Me Gusta
     videoCordoba.adMeGusta(juana)
     videoCordoba.adMeGusta(naty)
-    videoCordoba.adMeGusta(horacio)
-    fotoEnCuzco.agregarTipoPublicacion(PrivadoConListaPermitidos())
-    fotoEnCuzco.agregarPrivado(pedro)
-    videoCordoba.agregarTipoPublicacion(SoloAmigos())
-    saludoCumpleanios.agregarTipoPublicacion(Publico())
-    saludoCumpleanios2.agregarTipoPublicacion(PublicoConListaExcluidos())
-    saludoCumpleanios2.agregarExcluido(pedro)
 
-    // tipoDePublicacion = Publico, SoloAmigos, PrivadoConListaPermitidos, PublicoConListaExcluidos
+          // Stalkea
+    videoCordoba.adMeGusta(horacio)
+    fotoEnCuzco.adMeGusta(horacio)
+    videoVacaciones.adMeGusta(horacio)
+    saludoCumpleanios.adMeGusta(horacio)
+    videoShow.adMeGusta(horacio)
+    saludoCumpleanios2.adMeGusta(horacio)
+
+    // tipoDePublicacion = Publico, Amigos, Privado
+    fotoEnCuzco.agregarTipoPublicacion(Privado())
+
+    videoCordoba.agregarTipoPublicacion(Amigos())
+
+    saludoCumpleanios.agregarTipoPublicacion(Publico())
+    saludoCumpleanios2.agregarTipoPublicacion(Publico())
+    videoShow.agregarTipoPublicacion(Publico())
+
+    saludoCumpleanios2.agregarExcluido(pedro)
+    videoShow.agregarExcluido(miranda)
+
+    fotoEnCuzco.agregarPrivado(pedro)
+    fotoEnCuzco.agregarPrivado(miranda)
+
+
     // TEST PARA PUBLICACIONES
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -59,32 +82,53 @@ class UsuarioTest : DescribeSpec({
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
         }
 
-        //agregamos un nuevo Me gusta de horacio y deberia seguir dando resultado 3 meGusta
+        //agregamos un nuevo Me gusta de horacio y debería seguir dando resultado 3 meGusta
         videoCordoba.adMeGusta(horacio)
         it ("cantidad de me gusta sumando un de usuario repetido"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
         }
       }
+
+      // Verificar Permisos
       describe("Tipo de publicación foto"){
-        it("foto en cuzco Privado Con Lista Permitidos"){
+        it("foto en cuzco PRIVADO usuario en Lista Permitidos (da falso)"){
           fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
+      describe("Tipo de publicación foto falso") {
+        it("foto en cuzco PRIVADO sin usuario en Lista Permitidos(ok)") {
+          fotoEnCuzco.usuarioPuedeVerPublicacion(horacio).shouldBe(false)
+        }
+      }
+
       describe("Tipo de publicación video"){
-        it(" Video Cordoba AMIGOS"){
+        it(" Video Cordoba con usuario en lista de AMIGOS (da falso)"){
           videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(true)
         }
       }
+      describe("Tipo de publicación video falso"){
+        it("Video Cordoba sin usuario en lista de AMIGOS(OK)"){
+          videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(false)
+        }
+      }
+
+      describe("Tipo de publicación: publica usuario excluido en lista de excluido"){
+        it("Video con usuario fuera de Lista Excluidos (da falso) "){
+          videoShow.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
+        }
+      }
+      describe("Tipo de publicación: publica usuario Incluido en lista de excluido"){
+        it("Video con usuario en Lista Excluidos (ok)"){
+          videoShow.usuarioPuedeVerPublicacion(miranda).shouldBe(false)
+        }
+      }
+
       describe("Tipo de publicación saludo"){
         it(" Saludo Cumpleaños publico "){
           saludoCumpleanios.usuarioPuedeVerPublicacion(naty).shouldBe(true)
         }
       }
-      describe("Otro Tipo de publicación saludo"){
-        it(" Saludo Cumpleaños Publico Con Lista Excluidos "){
-          saludoCumpleanios2.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
-        }
-      }
+
 
     }
     //  TEST USUARIOS
@@ -112,7 +156,8 @@ class UsuarioTest : DescribeSpec({
           }
         }
     }
-    /* fuera del test de publicaciones y test de usuario */
+
+  /* fuera del test de publicaciones y test de usuario */
 
   }
 })

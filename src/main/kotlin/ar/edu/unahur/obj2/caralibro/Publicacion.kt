@@ -10,18 +10,38 @@ abstract class Publicacion {
   fun agregarPrivado(usuario: Usuario)  = usuariosPrivados.add(usuario)
   fun agregarExcluido(usuario: Usuario) = usuariosExcluidos.add(usuario)
 
+  fun esUnUsuarioPrivado(usuario: Usuario): Boolean { return usuariosPrivados.contains(usuario) }
+  fun esUnUsuarioExcluido(usuario: Usuario): Boolean { return usuariosExcluidos.contains(usuario) }
+  fun esUnUsuarioAmigo(usuario: Usuario): Boolean { return Usuario().usuariosAmigos.contains(usuario) }
+  fun queTipoDePublicacion(permiso: Permiso): Boolean { return tipoPublicacion.contains(permiso) }
+  /*
+  Ver que tipo de publicación es.
+  si es publica y no esta en la lista de usuariosExcluidos ok
+  si es privado, pertenecer a lista de usuariosPrivados
+  si es solo amigos pertenecer a lista de usuariosAmigos
+  */
+
   fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
-    if(this.tipoPublicacion.contains(SoloAmigos())){
+    return queTipoDePublicacion(Publico()) && !esUnUsuarioExcluido(usuario) ||
+    queTipoDePublicacion(Amigos()) && esUnUsuarioAmigo(usuario) ||
+    queTipoDePublicacion(Privado()) && esUnUsuarioPrivado(usuario)
+  }
+/*
+  fun usuarioPuedeVerPublicacion1(usuario: Usuario): Boolean {
+    if(this.tipoPublicacion.contains(Amigos())){
       return Usuario().usuariosAmigos.contains(usuario)
-    }else if(tipoPublicacion.contains(PrivadoConListaPermitidos())){
+    }
+    else if(tipoPublicacion.contains(PrivadoConListaPermitidos())){
       return this.usuariosPrivados.contains(usuario)
-    }else if(tipoPublicacion.contains(PublicoConListaExcluidos())){
+    }
+    else if(tipoPublicacion.contains(PublicoConListaExcluidos())){
       return !this.usuariosExcluidos.contains(usuario)
-    }else{
+    }
+    else{
       //Publico() no es ninguno de los otros permisos, siempre es true
       return true
     }
-  }
+  } */
 
   abstract fun espacioQueOcupa(): Int
 
@@ -51,5 +71,4 @@ class Video(var duracion: Int, val calidad: String) : Publicacion() {
       else -> (duracion)
     }
   }
-
 }

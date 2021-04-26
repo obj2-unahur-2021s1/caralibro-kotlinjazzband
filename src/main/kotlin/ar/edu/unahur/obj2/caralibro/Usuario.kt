@@ -14,6 +14,8 @@ open class Usuario {
    return if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
 
+  fun permisoQueTienePublicacion(){}
+
   fun quienVeTodas(){
     // el conjunto de sus amigos que pueden ver todas sus publicaciones
   }
@@ -24,6 +26,7 @@ open class Usuario {
     // le dio me gusta a más del 90% de sus publicaciones.
   }
 
-}// FIN CLASS
+}
+// FIN CLASS
 
 //class Amigo : Usuario(){ } // verificar si debe heredar de usuario
