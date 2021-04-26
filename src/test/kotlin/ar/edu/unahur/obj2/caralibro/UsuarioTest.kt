@@ -82,7 +82,7 @@ class UsuarioTest : DescribeSpec({
       }
       describe("Otro Tipo de publicación saludo"){
         it(" Saludo Cumpleaños Publico Con Lista Excluidos "){
-          saludoCumpleanios2.usuarioPuedeVerPublicacion(pedro).shouldBe(false)
+          saludoCumpleanios2.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
 
