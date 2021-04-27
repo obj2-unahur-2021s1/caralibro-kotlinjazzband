@@ -12,6 +12,7 @@ abstract class Publicacion {
 
   fun agregarPrivado(usuario: Usuario)  = usuariosPrivados.add(usuario)
   fun agregarExcluido(usuario: Usuario) = usuariosExcluidos.add(usuario)
+  fun usuariosLesGusta(): MutableList<Usuario> =  usuariosLesGusta
 
   fun esUnUsuarioPrivado(usuario: Usuario): Boolean { return usuariosPrivados.contains(usuario) }
   fun esUnUsuarioExcluido(usuario: Usuario): Boolean { return usuariosExcluidos.contains(usuario) }
@@ -30,8 +31,14 @@ abstract class Publicacion {
   abstract fun espacioQueOcupa(): Int
 
   fun adMeGusta(nuevoUsuario: Usuario) {
-    if (!usuariosLesGusta.contains(nuevoUsuario)) { usuariosLesGusta.add(nuevoUsuario) }
+    if (!usuariosLesGusta.contains(nuevoUsuario)) {
+      usuariosLesGusta.add(nuevoUsuario)
+    }
+    else {
+      throw IllegalArgumentException("El usuario ya agrego un me gusta")
+    }
   }
+
   fun cantidadDeMeGusta(): Int { return usuariosLesGusta.size }
 }
 
