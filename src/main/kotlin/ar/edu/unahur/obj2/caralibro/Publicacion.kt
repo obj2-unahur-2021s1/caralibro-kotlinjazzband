@@ -28,6 +28,10 @@ abstract class Publicacion {
             elTipoDePublicacionEs("Privado") && esUnUsuarioPrivado(usuario)
   }
 
+  fun leGustaEstaPublicacionA(usuario: Usuario): Boolean {
+    return usuariosLesGusta.contains(usuario)
+  }
+
   abstract fun espacioQueOcupa(): Int
 
   fun adMeGusta(nuevoUsuario: Usuario) {

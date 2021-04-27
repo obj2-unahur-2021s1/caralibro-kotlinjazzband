@@ -149,7 +149,11 @@ class UsuarioTest : DescribeSpec({
           saludoCumpleanios.usuarioPuedeVerPublicacion(naty).shouldBeTrue()
         }
       }
-
+      describe("usuario usuario Le Gusta Publicacion "){
+        it(" naty le gusta publicacion de juana "){
+          juana.usuarioLeGustaPublicacion(naty).shouldBeTrue()
+        }
+      }
 
     }
     //  TEST USUARIOS

@@ -15,6 +15,10 @@ open class Usuario {
    return if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
 
+  fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {
+    return publicaciones.map(it.leGustaEstaPublicacionA(usuario))
+  }
+
   fun permisoQueTienePublicacion(){  }
 
   fun quienVeTodas(){
@@ -30,7 +34,7 @@ open class Usuario {
     //return usuariosAmigos.map(a -> it.publicaciones -> a.cantidadDeMeGusta() )
   }
 
-  fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {  return publicaciones.contains(it.usuariosLesGusta(usuario))  }
+
 
   fun cantidadDePublicaciones() = publicaciones.size
 
