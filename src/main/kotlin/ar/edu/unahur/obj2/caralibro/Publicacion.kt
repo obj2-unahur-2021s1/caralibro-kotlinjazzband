@@ -7,6 +7,7 @@ abstract class Publicacion {
 
   // Publico Amigos, Privado
   var tipoPublicacion: String = "Publico"
+
   fun agregarTipoPublicacion(tipo: String) = tipo.also { tipoPublicacion = it }
   //fun tipoPublicacion(): String { return tipoPublicacion }
 
@@ -18,19 +19,6 @@ abstract class Publicacion {
   fun esUnUsuarioExcluido(usuario: Usuario): Boolean { return usuariosExcluidos.contains(usuario) }
   fun esUnUsuarioAmigo(usuario: Usuario): Boolean { return Usuario().usuariosAmigos.contains(usuario) }
   fun elTipoDePublicacionEs(permiso: String): Boolean { return tipoPublicacion.contains(permiso) }
-
-  /*  Ver que tipo de publicación es. Público y no esta en la lista de usuariosExcluidos ok
-  si es privado, pertenecer a lista de usuariosPrivados y si es solo amigos pertenecer a lista de usuariosAmigos */
-
-  fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
-    return elTipoDePublicacionEs("Amigos") && esUnUsuarioAmigo(usuario) ||
-            elTipoDePublicacionEs("Publico") && !esUnUsuarioExcluido(usuario) ||
-            elTipoDePublicacionEs("Privado") && esUnUsuarioPrivado(usuario)
-  }
-
-  fun leGustaEstaPublicacionA(usuario: Usuario): Boolean {
-    return usuariosLesGusta.contains(usuario)
-  }
 
   abstract fun espacioQueOcupa(): Int
 
@@ -44,6 +32,15 @@ abstract class Publicacion {
   }
 
   fun cantidadDeMeGusta(): Int { return usuariosLesGusta.size }
+
+  fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
+    return elTipoDePublicacionEs("Amigos") && esUnUsuarioAmigo(usuario) ||
+            elTipoDePublicacionEs("Publico") && !esUnUsuarioExcluido(usuario) ||
+            elTipoDePublicacionEs("Privado") && esUnUsuarioPrivado(usuario)
+  }
+
+  fun leGustaEstaPublicacionA(usuario: Usuario): Boolean { return usuariosLesGusta.contains(usuario) }
+
 }
 
 // PUBLICACIONES FOTOGRÁFICAS

@@ -15,9 +15,13 @@ open class Usuario {
    return if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
 
-  fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {
-    return publicaciones.map(it.leGustaEstaPublicacionA(usuario))
-  }
+  fun cantidadDePublicaciones() = publicaciones.size
+
+  fun contarMeGustaDeUsuario(usuario: Usuario):Int { return publicaciones.count(){ it.leGustaEstaPublicacionA(usuario)}  }
+
+  //fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {
+    //return publicaciones.map(it.leGustaEstaPublicacionA(usuario))
+  //}
 
   fun permisoQueTienePublicacion(){  }
 
@@ -31,12 +35,13 @@ open class Usuario {
     // Saber cual es el amigo más popular que tiene un usuario.
     // Es decir, el amigo que tiene mas me gusta entre todas sus publicaciones.
     // amigo con mas cantidad de me gusta (1 amigo)
-    //return usuariosAmigos.map(a -> it.publicaciones -> a.cantidadDeMeGusta() )
+   // return usuariosAmigos.count(it.cantidadDeMeGusta() )
   }
 
 
+  //fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {  return publicaciones.contains(it.usuariosLesGusta(usuario))  }
 
-  fun cantidadDePublicaciones() = publicaciones.size
+
 
   fun usuarioStalkea(usuario: Usuario):Boolean{
     // Saber si un usuario stalkea a otro.
