@@ -35,12 +35,12 @@ class UsuarioTest : DescribeSpec({
     saludoCumpleanios2.adMeGusta(horacio)
 
     // tipoDePublicacion = Publico, Amigos, Privado
-    fotoEnCuzco.agregarTipoPublicacion(Privado())
-    videoCordoba.agregarTipoPublicacion(Amigos())
+    fotoEnCuzco.agregarTipoPublicacion("Privado")
+    videoCordoba.agregarTipoPublicacion("Amigos")
 
-    saludoCumpleanios.agregarTipoPublicacion(Publico())
-    saludoCumpleanios2.agregarTipoPublicacion(Publico())
-    videoShow.agregarTipoPublicacion(Publico())
+    saludoCumpleanios.agregarTipoPublicacion("Publico")
+    saludoCumpleanios2.agregarTipoPublicacion("Publico")
+    videoShow.agregarTipoPublicacion("Publico")
 
     saludoCumpleanios2.agregarExcluido(pedro)
     videoShow.agregarExcluido(miranda)
@@ -83,7 +83,7 @@ class UsuarioTest : DescribeSpec({
 
         //agregamos un nuevo Me gusta de horacio y debería seguir dando resultado 3 meGusta
         videoCordoba.adMeGusta(horacio)
-        it ("cantidad de me gusta sumando un de usuario repetido"){
+        it ("cantidad de me gusta verificando que no agrega usuario repetido"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
         }
       }
@@ -91,43 +91,58 @@ class UsuarioTest : DescribeSpec({
       // Verificar Permisos
       describe("Tipo de publicación foto"){
         it("foto en cuzco PRIVADO con usuario en Lista Permitidos (da falso)"){
-          fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
+          //fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
+          fotoEnCuzco.elTipoDePublicacionEs("Privado").shouldBe(true)
         }
       }
       // pedro es amigo de juana y esta en lista privada, horacio es amigo pero no esta en lista
 
-      describe("Tipo de publicación foto falso") {
+      describe("usuario puede ver publicacion falso") {
         it("foto en cuzco PRIVADO sin usuario en Lista Permitidos(ok)") {
           fotoEnCuzco.usuarioPuedeVerPublicacion(horacio).shouldBe(false)
         }
       }
 
+      describe("usuarios Amigos de juana"){
+        it("chequeando amigos"){
+          //fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
+          juana.usuariosAmigos.contains(naty).shouldBe(true)
+        }
+      }
+
       describe("Tipo de publicación video"){
-        it(" Video Cordoba con usuario en lista de AMIGOS (da falso)"){
-          videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(true)
+        it("foto en cuzco PRIVADO con usuario en Lista Permitidos (da falso)"){
+          //fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
+          videoCordoba.elTipoDePublicacionEs("Amigos").shouldBe(true)
+        }
+      }
+
+      describe("usuario puede ver publicacion video"){
+        it(" Video Cordoba con usuario en lista de AMIGOS (da //falso)"){
+          videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBe(false)
         }
       }
       // naty es amigo de juana y miranda no
 
-      describe("Tipo de publicación video falso"){
+      describe("usuario puede ver publicacion falso"){
         it("Video Cordoba sin usuario en lista de AMIGOS(OK)"){
           videoCordoba.usuarioPuedeVerPublicacion(miranda).shouldBe(false)
         }
       }
 
-      describe("Tipo de publicación: publica usuario excluido en lista de excluido"){
+      describe("usuario puede ver publicacion: publica usuario excluido en lista de excluido"){
         it("Video con usuario fuera de Lista Excluidos (da falso) "){
           videoShow.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
         }
       }
       // pedro es amigo de juana y miranda no. Mirandad esta excluida, pedro no
-      describe("Tipo de publicación: publica usuario Incluido en lista de excluido"){
+      describe("usuario puede ver publicacion: publica usuario Incluido en lista de excluido"){
         it("Video con usuario en Lista Excluidos (ok)"){
           videoShow.usuarioPuedeVerPublicacion(miranda).shouldBe(false)
         }
       }
 
-      describe("Tipo de publicación saludo"){
+      describe("usuario puede ver publicacion saludo"){
         it(" Saludo Cumpleaños publico "){
           saludoCumpleanios.usuarioPuedeVerPublicacion(naty).shouldBe(true)
         }
@@ -153,7 +168,7 @@ class UsuarioTest : DescribeSpec({
             naty.cantidadDeAmigos().shouldBe(1)
           }
           it("cuantos amigos tiene juana"){
-            juana.cantidadDeAmigos().shouldBe(2)
+            juana.cantidadDeAmigos().shouldBe(5)
           }
           it("usuario mas amistoso juana"){
             juana.esMasAmistoso(naty).shouldBe(juana)

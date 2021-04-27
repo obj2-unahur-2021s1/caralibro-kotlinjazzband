@@ -2,25 +2,29 @@ package ar.edu.unahur.obj2.caralibro
 
 abstract class Publicacion {
   val usuariosLesGusta = mutableListOf<Usuario>()
-  val tipoPublicacion = mutableListOf<Permiso>()
   val usuariosPrivados = mutableListOf<Usuario>()
   val usuariosExcluidos = mutableListOf<Usuario>()
 
-  fun agregarTipoPublicacion(tipo: Permiso) = tipoPublicacion.add(tipo)
+  // Publico Amigos, Privado
+  var tipoPublicacion: String = "Publico"
+  fun agregarTipoPublicacion(tipo: String) = tipo.also { tipoPublicacion = it }
+  //fun tipoPublicacion(): String { return tipoPublicacion }
+
   fun agregarPrivado(usuario: Usuario)  = usuariosPrivados.add(usuario)
   fun agregarExcluido(usuario: Usuario) = usuariosExcluidos.add(usuario)
 
   fun esUnUsuarioPrivado(usuario: Usuario): Boolean { return usuariosPrivados.contains(usuario) }
   fun esUnUsuarioExcluido(usuario: Usuario): Boolean { return usuariosExcluidos.contains(usuario) }
   fun esUnUsuarioAmigo(usuario: Usuario): Boolean { return Usuario().usuariosAmigos.contains(usuario) }
-  fun elTipoDePublicacionEs(permiso: Permiso): Boolean { return tipoPublicacion.contains(permiso) }
+  fun elTipoDePublicacionEs(permiso: String): Boolean { return tipoPublicacion.contains(permiso) }
 
   /*  Ver que tipo de publicación es. Público y no esta en la lista de usuariosExcluidos ok
   si es privado, pertenecer a lista de usuariosPrivados y si es solo amigos pertenecer a lista de usuariosAmigos */
+
   fun usuarioPuedeVerPublicacion(usuario: Usuario): Boolean {
-    return elTipoDePublicacionEs(Amigos()) && esUnUsuarioAmigo(usuario) ||
-            elTipoDePublicacionEs(Publico()) && !esUnUsuarioExcluido(usuario) ||
-            elTipoDePublicacionEs(Privado()) && esUnUsuarioPrivado(usuario)
+    return elTipoDePublicacionEs("Amigos") && esUnUsuarioAmigo(usuario) ||
+            elTipoDePublicacionEs("Publico") && !esUnUsuarioExcluido(usuario) ||
+            elTipoDePublicacionEs("Privado") && esUnUsuarioPrivado(usuario)
   }
 
   abstract fun espacioQueOcupa(): Int

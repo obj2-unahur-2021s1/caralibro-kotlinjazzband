@@ -14,10 +14,14 @@ open class Usuario {
    return if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos()){ this } else { usuario }
   }
 
-  fun permisoQueTienePublicacion(){}
+  fun permisoQueTienePublicacion(){
+    }
 
   fun quienVeTodas(){
     // el conjunto de sus amigos que pueden ver todas sus publicaciones
+    //val amigosVenTodas = mutableListOf<Usuario>()
+
+    //usuarioPuedeVerPublicacion
   }
   fun amigoMasPopular(){
     // el amigo que tiene mas me gusta entre todas sus publicaciones
