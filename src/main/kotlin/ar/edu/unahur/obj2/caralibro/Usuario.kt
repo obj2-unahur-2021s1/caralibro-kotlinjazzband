@@ -25,6 +25,7 @@ open class Usuario {
   }
   fun amigoMasPopular(){
     // el amigo que tiene mas me gusta entre todas sus publicaciones
+    //return usuariosAmigos.map(a -> it.publicaciones -> a.cantidadDeMeGusta() )
   }
   fun usuarioStalkea(){
     // le dio me gusta a más del 90% de sus publicaciones.
