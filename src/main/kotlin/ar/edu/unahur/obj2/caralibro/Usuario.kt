@@ -19,18 +19,13 @@ open class Usuario {
 
   fun contarMeGustaDeUsuario(usuario: Usuario):Int { return publicaciones.count(){ it.leGustaEstaPublicacionA(usuario)}  }
 
-  //fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {
-    //return publicaciones.map(it.leGustaEstaPublicacionA(usuario))
-  //}
-
-  fun permisoQueTienePublicacion(){  }
 
   fun quienVeTodas(){
     // usuarios amigos que en las listas privada y no esta en la lista de excluidos (conjunto)
     //val amigosVenTodas = mutableListOf<Usuario>()
 
-    //usuarioPuedeVerPublicacion
   }
+
   fun amigoMasPopular(){
     // Saber cual es el amigo más popular que tiene un usuario.
     // Es decir, el amigo que tiene mas me gusta entre todas sus publicaciones.
@@ -38,17 +33,10 @@ open class Usuario {
    // return usuariosAmigos.count(it.cantidadDeMeGusta() )
   }
 
-
-  //fun usuarioLeGustaPublicacion(usuario: Usuario): Boolean {  return publicaciones.contains(it.usuariosLesGusta(usuario))  }
-
-
+  fun noventaPorcientoDePublicaciones():Int = cantidadDePublicaciones()*90/100
 
   fun usuarioStalkea(usuario: Usuario):Boolean{
-    // Saber si un usuario stalkea a otro.
-    // Lo cual ocurre si el stalker le dio me gusta a más del 90% de sus publicaciones.
-    // tengo una lista de publicaciones -> usuario le dio me gusta
-    // publicaciones.usuariosLesGusta
-    return true
+    return contarMeGustaDeUsuario(usuario) >= noventaPorcientoDePublicaciones()
   }
 
 }
