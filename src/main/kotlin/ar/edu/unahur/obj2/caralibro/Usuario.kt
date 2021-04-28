@@ -17,20 +17,13 @@ open class Usuario {
 
   fun cantidadDePublicaciones() = publicaciones.size
 
-  fun contarMeGustaDeUsuario(usuario: Usuario):Int { return publicaciones.count(){ it.leGustaEstaPublicacionA(usuario)}  }
+  fun contarMeGustaDeUsuario(usuario: Usuario):Int { return publicaciones.count{ it.leGustaEstaPublicacionA(usuario)} }
 
-
-  fun quienVeTodas(){
-    // usuarios amigos que en las listas privada y no esta en la lista de excluidos (conjunto)
-    //val amigosVenTodas = mutableListOf<Usuario>()
-
-  }
+  fun quienVeTodas() {  }
 
   fun amigoMasPopular(){
     // Saber cual es el amigo más popular que tiene un usuario.
     // Es decir, el amigo que tiene mas me gusta entre todas sus publicaciones.
-    // amigo con mas cantidad de me gusta (1 amigo)
-   // return usuariosAmigos.count(it.cantidadDeMeGusta() )
   }
 
   fun noventaPorcientoDePublicaciones():Int = cantidadDePublicaciones()*90/100

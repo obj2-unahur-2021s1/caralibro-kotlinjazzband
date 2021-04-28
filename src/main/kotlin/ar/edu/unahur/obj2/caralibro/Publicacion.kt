@@ -9,7 +9,6 @@ abstract class Publicacion {
   var tipoPublicacion: String = "Publico"
 
   fun agregarTipoPublicacion(tipo: String) = tipo.also { tipoPublicacion = it }
-  //fun tipoPublicacion(): String { return tipoPublicacion }
 
   fun agregarPrivado(usuario: Usuario)  = usuariosPrivados.add(usuario)
   fun agregarExcluido(usuario: Usuario) = usuariosExcluidos.add(usuario)

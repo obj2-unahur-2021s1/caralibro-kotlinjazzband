@@ -78,7 +78,7 @@ class UsuarioTest : DescribeSpec({
           videoShow.espacioQueOcupa().shouldBe(60000)
         }
       }
-      describe("la publicación me gustaa"){
+      describe("la publicación me Gusta "){
         it ("cantidad de me gusta"){
           videoCordoba.cantidadDeMeGusta().shouldBe(3)
 
@@ -100,7 +100,7 @@ class UsuarioTest : DescribeSpec({
       }
       // pedro es amigo de juana y esta en lista privada, horacio es amigo pero no esta en lista
 
-      describe("usuario puede ver publicacion falso") {
+      describe("usuario puede ver publicación falso") {
         it("foto en cuzco PRIVADO sin usuario en Lista Permitidos(ok)") {
           fotoEnCuzco.usuarioPuedeVerPublicacion(horacio).shouldBeFalse()
         }
@@ -114,44 +114,44 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe("Tipo de publicación video"){
-        it("foto en cuzco PRIVADO con usuario en Lista Permitidos (da falso)"){
+        it("foto en cuzco PRIVADO con usuario en Lista Permitidos"){
           //fotoEnCuzco.usuarioPuedeVerPublicacion(pedro).shouldBe(true)
           videoCordoba.elTipoDePublicacionEs("Amigos").shouldBeTrue()
         }
       }
 
-      describe("usuario puede ver publicacion video"){
-        it(" Video Cordoba con usuario en lista de AMIGOS (da //falso)"){
+      describe("usuario puede ver publicación video"){
+        it(" Video Cordoba con usuario en lista de AMIGOS "){
           videoCordoba.usuarioPuedeVerPublicacion(naty).shouldBeFalse()
         }
       }
       // naty es amigo de juana y miranda no
 
-      describe("usuario puede ver publicacion falso 2"){
-        it("Video Cordoba sin usuario en lista de AMIGOS(OK)"){
+      describe("usuario puede ver publicación falso 2"){
+        it("Video Cordoba sin usuario en lista de AMIGOS"){
           videoCordoba.usuarioPuedeVerPublicacion(miranda).shouldBeFalse()
         }
       }
 
-      describe("usuario puede ver publicacion: publica usuario excluido en lista de excluido"){
-        it("Video con usuario fuera de Lista Excluidos (da falso) "){
+      describe("usuario puede ver publicación: publica usuario excluido en lista de excluido"){
+        it("Video con usuario fuera de Lista Excluidos  "){
           videoShow.usuarioPuedeVerPublicacion(pedro).shouldBeTrue()
         }
       }
       // pedro es amigo de juana y miranda no. Mirandad esta excluida, pedro no
-      describe("usuario puede ver publicacion: publica usuario Incluido en lista de excluido"){
-        it("Video con usuario en Lista Excluidos (ok)"){
+      describe("usuario puede ver publicación: publica usuario Incluido en lista de excluido"){
+        it("Video con usuario en Lista Excluidos "){
           videoShow.usuarioPuedeVerPublicacion(miranda).shouldBeFalse()
         }
       }
 
-      describe("usuario puede ver publicacion saludo"){
+      describe("usuario puede ver publicación saludo"){
         it(" Saludo Cumpleaños publico "){
           saludoCumpleanios.usuarioPuedeVerPublicacion(naty).shouldBeTrue()
         }
       }
       describe("usuario usuario Le Gusta Publicacion "){
-        it(" naty le gusta publicacion de juana "){
+        it(" naty le gusta publicación de juana "){
           videoCordoba.leGustaEstaPublicacionA(naty).shouldBeTrue()
         }
       }
@@ -182,8 +182,6 @@ class UsuarioTest : DescribeSpec({
           }
         }
     }
-
-  /* fuera del test de publicaciones y test de usuario */
 
   }
 })
